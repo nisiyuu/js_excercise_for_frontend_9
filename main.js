@@ -13,17 +13,29 @@
   //   - quizzes : fetchで取得したクイズデータの配列(resutls)を保持する
   //   - currentIndex : 現在何問目のクイズに取り組んでいるのかをインデックス番号で保持する
   //   - numberOfCorrects : 正答数を保持するう
-
+  const gameState = {
+    quizzes: [],
+    currentIndex: 0,
+    numberOfCorrects: 0,
+  };
 
   // HTMLのid値がセットされているDOMを取得する
-
+  const questionContainer = document.getElementById('question');
+  const answerContainer = document.getElementById('answers');
+  console.log(answerContainer); //eslintに怒られないために使用
+  const resultContainer = document.getElementById('result');
+  const restartButton = document.getElementById('restart-button');
 
   // ページの読み込みが完了したらクイズ情報を取得する
-
+  window.addEventListener('load', () => {
+    fetchQuizData();
+  });
 
   // 「Restart」ボタンをクリックしたら再度クイズデータを取得する
 
-
+  restartButton.addEventListener('click', () => {
+    fetchQuizData();
+  });
 
   // `fetchQuizData関数`を実装する
   // - 実現したいこと
@@ -43,7 +55,23 @@
   //   - 無し
   // - 戻り値
   //   - 無し
+  const fetchQuizData = async () => {
+    questionContainer.textContent = 'Now loading...」';
+    resultContainer.textContent = '';
+    restartButton.hidden = true;
 
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      console.log(data); //eslintに怒られないために使用
+      gameState.quizzes = [];
+      gameState.currentIndex = 0;
+      gameState.numberOfCorrects = 0;
+      setNextQuiz();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   // setNextQuiz関数を実装する
   // - 実現したいこと
@@ -57,7 +85,9 @@
   //   - 無し
   // - 戻り値
   //   - 無し
-
+  const setNextQuiz = () => {
+    //todo
+  };
 
   // finishQuiz関数を実装する
   // - 実現したいこと
@@ -68,7 +98,6 @@
   // - 戻り値
   //   - 無し
 
-
   // removeAllAnswers関数を実装する
   // - 実現したいこと
   //   - 解答を全て削除する
@@ -76,7 +105,6 @@
   //   - 無し
   // - 戻り値
   //   - 無し
-
 
   // makeQuiz関数を実装する
   // - 実現したいこと
@@ -94,10 +122,8 @@
   // - 戻り値無し
   //   - 無し
 
-
   // quizオブジェクトの中にあるcorrect_answer, incorrect_answersを結合して
   // 正解・不正解の解答をシャッフルする。
-
 
   // `shuffle関数` を実装する
   // - 実現したいこと
@@ -110,8 +136,6 @@
   // - 戻り値
   //   - shffuledArray : シャッフル後の配列(引数の配列とは別の配列であることに注意する)
 
-
-
   // unescapeHTML関数を実装する
   // - 実現したいこと
   //   - &やクオーテーションマークなどが特殊文字としてセットされているので、
@@ -121,5 +145,4 @@
   //   - 文字列
   // - 戻り値
   //   - 文字列
-
 })();

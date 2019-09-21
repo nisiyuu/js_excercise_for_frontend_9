@@ -1,0 +1,33 @@
+{
+  "name": "js_excercise_for_frontend_9",
+  "version": "1.0.0",
+  "description": "このレポジトリは[Web白熱教室](https://tsuyopon.xyz/)の[JavaScriptの学習コンテンツ > JavaScriptフロントエンド編](https://tsuyopon.xyz/learning-contents/web-dev/javascript/frontend/)にある「[【エクササイズ】async/awaitを使ってクイズアプリを作る](https://tsuyopon.xyz/learning-contents/web-dev/javascript/frontend/js-excercise-for-frontend-9/)」で利用するものです。",
+  "main": "main.js",
+  "scripts": {
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nisiyuu/js_excercise_for_frontend_9.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nisiyuu/js_excercise_for_frontend_9/issues"
+  },
+  "homepage": "https://github.com/nisiyuu/js_excercise_for_frontend_9#readme",
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.18.2"
+  }
+}
