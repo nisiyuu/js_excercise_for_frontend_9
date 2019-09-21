@@ -107,7 +107,6 @@
   //   - 無し
 
   const finishQuiz = () => {
-    console.log('aaa');
     resultContainer.textContent =
       '「' +
       gameState.numberOfCorrects +
