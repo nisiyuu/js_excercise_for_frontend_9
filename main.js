@@ -56,7 +56,7 @@
   // - 戻り値
   //   - 無し
   const fetchQuizData = async () => {
-    questionContainer.textContent = 'Now loading...」';
+    questionContainer.textContent = '「Now loading...」';
     resultContainer.textContent = '';
     restartButton.hidden = true;
 
@@ -86,7 +86,15 @@
   // - 戻り値
   //   - 無し
   const setNextQuiz = () => {
-    //todo
+    questionContainer.textContent = '';
+    removeAllAnswers();
+
+    if (gameState.currentIndex < gameState.quizzes.length) {
+      const quiz = gameState.quizzes[gameState.currentIndex];
+      makeQuiz(quiz);
+    } else {
+      finishQuiz();
+    }
   };
 
   // finishQuiz関数を実装する
@@ -98,6 +106,17 @@
   // - 戻り値
   //   - 無し
 
+  const finishQuiz = () => {
+    console.log('aaa');
+    resultContainer.textContent =
+      '「' +
+      gameState.numberOfCorrects +
+      '/' +
+      gameState.quizzes.length +
+      'corrects」';
+    restartButton.hidden = false;
+  };
+
   // removeAllAnswers関数を実装する
   // - 実現したいこと
   //   - 解答を全て削除する
@@ -105,6 +124,11 @@
   //   - 無し
   // - 戻り値
   //   - 無し
+
+  const removeAllAnswers = () => {
+    while (answerContainer.firstChild)
+      answerContainer.removeChild(answerContainer.firstChild);
+  };
 
   // makeQuiz関数を実装する
   // - 実現したいこと
@@ -121,6 +145,10 @@
   //   - 無し
   // - 戻り値無し
   //   - 無し
+
+  const makeQuiz = () => {
+    //todo
+  };
 
   // quizオブジェクトの中にあるcorrect_answer, incorrect_answersを結合して
   // 正解・不正解の解答をシャッフルする。
