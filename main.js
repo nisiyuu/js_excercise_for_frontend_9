@@ -64,7 +64,7 @@
       const response = await fetch(API_URL);
       const data = await response.json();
       console.log(data); //eslintに怒られないために使用
-      gameState.quizzes = [];
+      gameState.quizzes = data.results;
       gameState.currentIndex = 0;
       gameState.numberOfCorrects = 0;
       setNextQuiz();
@@ -145,12 +145,24 @@
   // - 戻り値無し
   //   - 無し
 
-  const makeQuiz = () => {
-    //todo
+  const makeQuiz = quiz => {
+    questionContainer.textContent = unescapeHTML(quiz.question);
+    const answers = buildAnswers(quiz);
+    answers.forEach(data => {
+      const answerData = document.createElement('li');
+      answerData.textContent = unescapeHTML(data);
+      answerContainer.appendChild(answerData);
+    });
   };
 
   // quizオブジェクトの中にあるcorrect_answer, incorrect_answersを結合して
   // 正解・不正解の解答をシャッフルする。
+
+  const buildAnswers = quiz => {
+    const answers = [quiz.correct_answer, ...quiz.incorrect_answers];
+
+    return shuffle(answers);
+  };
 
   // `shuffle関数` を実装する
   // - 実現したいこと
@@ -163,6 +175,20 @@
   // - 戻り値
   //   - shffuledArray : シャッフル後の配列(引数の配列とは別の配列であることに注意する)
 
+  const shuffle = array => {
+    const shuffuledArray = array.slice();
+    for (let i = shuffuledArray.length - 1; i >= 0; i--) {
+      // 0~iのランダムな数値を取得
+      const rand = Math.floor(Math.random() * (i + 1));
+
+      // 配列の数値を入れ替える
+      const tmp = array[i];
+      array[i] = array[rand];
+      array[rand] = tmp;
+    }
+    return shuffuledArray;
+  };
+
   // unescapeHTML関数を実装する
   // - 実現したいこと
   //   - &やクオーテーションマークなどが特殊文字としてセットされているので、
@@ -172,4 +198,15 @@
   //   - 文字列
   // - 戻り値
   //   - 文字列
+
+  const unescapeHTML = str => {
+    const div = document.createElement('div');
+    div.innerHTML = str
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/ /g, '&nbsp;')
+      .replace(/\r/g, '&#13;')
+      .replace(/\n/g, '&#10;');
+    return div.textContent || div.innerText;
+  };
 })();
