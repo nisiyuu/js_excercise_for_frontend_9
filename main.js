@@ -149,12 +149,12 @@
     //解答セット
     const answers = buildAnswers(quiz);
     answers.forEach(data => {
-      const answerData = document.createElement('li');
-      answerData.textContent = unescapeHTML(data);
-      answerContainer.appendChild(answerData);
+      const answerElement = document.createElement('li');
+      answerElement.textContent = unescapeHTML(data);
+      answerContainer.appendChild(answerElement);
 
       //処理
-      answerData.addEventListener('click', event => {
+      answerElement.addEventListener('click', event => {
         if (event.target.textContent === unescapeHTML(quiz.correct_answer)) {
           gameState.numberOfCorrects++;
           alert('Correct answer!!');
