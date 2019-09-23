@@ -22,7 +22,6 @@
   // HTMLのid値がセットされているDOMを取得する
   const questionContainer = document.getElementById('question');
   const answerContainer = document.getElementById('answers');
-  console.log(answerContainer); //eslintに怒られないために使用
   const resultContainer = document.getElementById('result');
   const restartButton = document.getElementById('restart-button');
 
@@ -63,7 +62,6 @@
     try {
       const response = await fetch(API_URL);
       const data = await response.json();
-      console.log(data); //eslintに怒られないために使用
       gameState.quizzes = data.results;
       gameState.currentIndex = 0;
       gameState.numberOfCorrects = 0;
@@ -146,12 +144,30 @@
   //   - 無し
 
   const makeQuiz = quiz => {
+    //問題文セット
     questionContainer.textContent = unescapeHTML(quiz.question);
+    //解答セット
     const answers = buildAnswers(quiz);
     answers.forEach(data => {
       const answerData = document.createElement('li');
       answerData.textContent = unescapeHTML(data);
       answerContainer.appendChild(answerData);
+
+      //処理
+      answerData.addEventListener('click', event => {
+        if (event.target.textContent === unescapeHTML(quiz.correct_answer)) {
+          gameState.numberOfCorrects++;
+          alert('Correct answer!!');
+        } else {
+          alert(
+            '「Wrong answer... The correct answer is ' +
+              unescapeHTML(quiz.correct_answer) +
+              ' 」'
+          );
+        }
+        gameState.currentIndex++;
+        setNextQuiz();
+      });
     });
   };
 
