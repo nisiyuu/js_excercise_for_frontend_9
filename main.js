@@ -5,7 +5,7 @@
   //   - 本サイト : https://opentdb.com/
   //   - 利用するAPI : https://opentdb.com/api.php?amount=10&type=multiple
 
-  const API_URL = 'https://opentdb.com/api.php?amount=&type=multiple';
+  const API_URL = 'https://opentdb.com/api.php?amount=10&type=multiple';
 
   // 「gameState」オブジェクトを作る
   // - クイズアプリのデータ管理用オブジェクト
