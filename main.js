@@ -68,6 +68,7 @@
       setNextQuiz();
     } catch (error) {
       alert(error.message);
+      alert(error.message);//試験
     }
   };
 
